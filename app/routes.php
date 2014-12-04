@@ -11,11 +11,27 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get(
+    '/', function () {
+        return View::make('hello');
+    }
+);
 
-Route::get('test/hello', function () {
-    return ['message' => 'Hello World!'];
-});
+Route::group(
+    ['prefix' => 'test'],
+    function () {
+        Route::get('hello', function () {
+            return ['message' => 'Hello World!'];
+        });
+
+        Route::get('items', function () {
+            return [
+                'items' => ['foo']
+            ];
+        });
+
+        Route::any('{uri}', function ($uri) {
+            return Response::json(['message' => "URI " . Request::path() . " not found."], 404);
+        });
+    }
+);

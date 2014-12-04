@@ -12,7 +12,18 @@ Feature: /test
       """
 
   Scenario: test.items.index - Get a List of Items
+    When I send a GET request to "/test/items"
+    And the response json should have a "items" key
+    And the response json's "items" key should be of type "array"
 
   Scenario: test.items.index - Get a List of Items Utilizing Pagination
 
   Scenario: test.items.index - Get a List of Items Utilizing Search Parameters
+
+  Scenario: Page not found
+    When I send a GET request to "/test/some-invalid-url"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+    { "message": "URI test/some-invalid-url not found." }
+    """
