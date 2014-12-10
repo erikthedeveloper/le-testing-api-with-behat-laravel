@@ -1,7 +1,7 @@
 default:
     extensions:
         Behat\WebApiExtension:
-            base_url: http://behat-api.homestead/
+            base_url: http://behat-api.test/
     suites:
         api:
             paths:    [ %paths.base%/features/api ]
