@@ -14,7 +14,9 @@
     },
     "require-dev": {
         "behat/behat": "~3",
-        "behat/web-api-extension": "~1.0@dev"
+        "behat/web-api-extension": "~1.0@dev",
+        "league/factory-muffin": "~2.0",
+        "way/generators": "~2.0"
     },
     "autoload": {
         "classmap": [
