@@ -4,7 +4,7 @@ Feature: API Resource: Muffins - Delicious Muffins.
   I need to be able to DO MUFFINS STUFF
 
   Background:
-    Given there are 27 "Muffin"s
+    Given there are 7 "Muffin"s
     And the "Muffin" with id 3 has attributes:
     """
     {
@@ -19,19 +19,21 @@ Feature: API Resource: Muffins - Delicious Muffins.
     {
     "page": 1,
     "per_page": 25,
-    "total": 27
+    "page_results": 7,
+    "total_results": 7
     }
     """
     And the response json's "items" key should be of type "array"
 
   Scenario: muffins.show Get a listing of muffins (w/ pagination and query string goodness)!
-    When I send a GET request to "/muffins?page=2&per_page=10"
+    When I send a GET request to "/muffins?page=2&per_page=5"
     Then the response should contain json:
     """
     {
     "page": 2,
-    "per_page": 10,
-    "total": 27
+    "per_page": 5,
+    "page_results": 2,
+    "total_results": 7
     }
     """
     And the response json's "items" key should be of type "array"

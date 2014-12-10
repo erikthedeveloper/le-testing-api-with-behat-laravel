@@ -5,16 +5,11 @@ class MuffinsController extends BaseApiController
 
     public function index()
     {
-        $per_page = Input::get('per_page', 25);
-        /** @var \Illuminate\Pagination\Paginator $paginated */
+        $per_page = Input::get('per_page', $this->per_page);
         $paginated = Muffin::paginate($per_page);
-        $data      = [
-            'items' => $paginated->getItems(),
-            'page'  => $paginated->getCurrentPage(),
-            'per_page' => $paginated->getPerPage(),
-            'total' => $paginated->getTotal()
-        ];
-        return $data;
+        $data = $this->buildPaginationResponse($paginated);
+
+        return $this->respondOk($data);
     }
 
     public function show($muffin_id)
@@ -25,10 +20,11 @@ class MuffinsController extends BaseApiController
             return $this->respondNotFound();
         }
 
-        return $target;
+        return $this->respondOk($target);
     }
 
-    public function destroy($muffin_id) {
+    public function destroy($muffin_id)
+    {
         try {
             /** @var Muffin $target */
             $target = Muffin::findOrFail($muffin_id);
@@ -39,6 +35,6 @@ class MuffinsController extends BaseApiController
         $data = [
             'deleted' => $target->delete()
         ];
-        return $data;
+        return $this->respondOk($data);
     }
 }
