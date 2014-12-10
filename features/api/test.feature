@@ -15,7 +15,7 @@ Feature: /test
     When I send a GET request to "/test/items"
     Then the response json should have a "items" key
     And the response json's "items" key should be of type "array"
-    And the response json should have a "total" key
+    And the response json should have a "total_results" key
     And the response json should have a "page" key
     And the response should contain json:
     """

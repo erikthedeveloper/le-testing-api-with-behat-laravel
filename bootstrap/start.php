@@ -24,11 +24,12 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
-
-	'local' => array('homestead'),
-
-));
+$env = $app->detectEnvironment( function () {
+    if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == 'behat-api.test')
+        return 'testing';
+    if (getenv('APP_ENV'))
+        return getenv('APP_ENV');
+});
 
 /*
 |--------------------------------------------------------------------------
