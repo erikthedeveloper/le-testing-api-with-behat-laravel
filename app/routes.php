@@ -9,3 +9,5 @@ Route::group(
 );
 
 Route::resource('muffins', 'MuffinsController');
+
+Route::any('{uri}', ['uses' => 'MuffinsController@respondNotFound']);
