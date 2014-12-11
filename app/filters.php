@@ -11,6 +11,10 @@
 |
 */
 
+if ($app->environment() == 'testing') {
+	$app['router']->enableFilters();
+}
+
 App::before(function($request)
 {
 	//
@@ -42,6 +46,18 @@ Route::filter('auth', function()
 			return Response::make('Unauthorized', 401);
 		}
 		return Redirect::guest('login');
+	}
+});
+
+Route::filter('auth.api', function ($req, $res) {
+	$credentials = [
+		'username' => Request::header('username'),
+		'password' => Request::header('password')
+	];
+	$success = $credentials['username'] == 'muffinlover101' && $credentials['password'] == 'ilovemuffinz';
+	//$success = Auth::once($credentials);
+	if (!$success) {
+		App::abort(401);
 	}
 });
 

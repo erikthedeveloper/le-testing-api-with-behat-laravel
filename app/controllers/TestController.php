@@ -8,6 +8,11 @@ class TestController extends BaseApiController
         return $this->respondOk(['message' => 'Hello World!']);
     }
 
+    public function requireAuth()
+    {
+        return $this->respondOk(["message" => "Welp, you must be auth'ed then!"]);
+    }
+
     public function itemsIndex()
     {
         $total     = 125;
